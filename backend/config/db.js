@@ -1,6 +1,5 @@
 const mongoose = require("mongoose")
 
-
 const dbUser = process.env.DB_USER //pegamos no .env
 const dbPassword = process.env.DB_PASS //pegamos no .env
 const conn = async() => {

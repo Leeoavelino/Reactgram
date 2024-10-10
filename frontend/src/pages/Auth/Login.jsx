@@ -35,7 +35,7 @@ const Login = () => {
     //limpar o state apos o dispatch for realizado
     useEffect(() => {
         dispatch(reset())
-    }, dispatch)
+    }, [dispatch])
 
     return(
         <div id="login">
