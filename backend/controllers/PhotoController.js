@@ -136,13 +136,15 @@ const commentPhoto = async(req, res) => {
     }
     //adiconando o comentario a foto
     const userComment = {
-        comment,
+        comment: comment,
         userName: user.name,
         userImage: user.profileImage,
         userId: user._id
     }
     photo.comments.push(userComment)
+
     await photo.save()
+    
     res.status(200).json({
         comment: userComment, 
         message: "O comentario foi adicionado com sucesso!" 

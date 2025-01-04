@@ -87,11 +87,22 @@ export const publishPhoto = createAsyncThunk(
     export const like = createAsyncThunk("photo/like", async(id, thunkAPI) => {
         const token = thunkAPI.getState().auth.user.token
         const data = await photoService.like(id, token)
-
         //verificar se tem algum erro
         // if(data.errors){
         //     return thunkAPI.rejectWithValue(data.errors[0])
         // }
+        return data
+    })
+
+    //comentarios da foto
+    export const comment = createAsyncThunk("photo/comment", async(commentData, thunkAPI) => {
+        const token = thunkAPI.getState().auth.user.token
+        const data = await photoService.comment({comment: commentData.comment}, commentData.id, token)
+
+        //verificar se tem algum erro
+        if(data.errors){
+            return thunkAPI.rejectWithValue(data.errors[0])
+        }
 
         return data
     })
@@ -198,6 +209,17 @@ export const photoSlice = createSlice({
             state.message = action.payload.message
         })
         .addCase(like.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        })
+        .addCase(comment.fulfilled, (state, action) => {
+            state.loading = false;
+            state.success = true;
+            state.error = null;
+            state.photo.comments.push(action.payload.comment)
+            state.message = action.payload.message
+        })
+        .addCase(comment.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         })
