@@ -28,7 +28,6 @@ const Photo = () => {
     //comentarios
     const [commentText, setCommentText] = useState("")
 
-
     //carregar os dados da foto
     useEffect(() => {
         dispatch(getPhoto(id))
@@ -45,7 +44,7 @@ const Photo = () => {
         e.preventDefault()
 
         const commentData = {
-            coment: commentText,
+            comment: commentText,
             id: photo._id
         }
         dispatch(comment(commentData))
