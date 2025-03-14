@@ -54,7 +54,7 @@ const deletePhoto = async(req, res) => {
 //pegar todas as fotos (get all photos)
 const getAllPhotos = async(req, res) => {
     const photos = await Photo.find({}).sort([["createdAt", -1]]).exec()
-    return res.status(200).json(photos)
+    return res.status(200).json(photos) //troquei photos por photo e o erro sumiu
 }
 //funçao de pegar as fotos do usuario
 const getUserPhotos = async(req, res) => {
@@ -159,13 +159,6 @@ const searchPhotos = async(req, res) => {
     res.status(200).json(photos)
 
 }
-
-
-
-
-
-
-
 
 module.exports = {
     insertPhoto,

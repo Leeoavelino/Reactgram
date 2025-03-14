@@ -17,7 +17,6 @@ import { useResetComponentMessage } from '../../hooks/useResetComponentMessage'
 import { getPhoto, like, comment } from '../../slices/photoSlice'
 import LikeContainer from '../../components/LikeContainer'
 
-
 const Photo = () => {
     const {id} = useParams()
     const dispatch = useDispatch()
@@ -25,8 +24,7 @@ const Photo = () => {
     const {user} = useSelector((state) => state.auth)
     const {photo, loading, error, message} = useSelector((state) => state.photo)
 
-    //comentarios
-    const [commentText, setCommentText] = useState("")
+    const [commentText, setCommentText] = useState("") //estado para o texto do comentario
 
     //carregar os dados da foto
     useEffect(() => {
@@ -41,16 +39,15 @@ const Photo = () => {
 
     //funçao para inserir comentarios
     const handleComment = (e) => {
-        e.preventDefault()
+        e.preventDefault() 
 
-        const commentData = {
+        const commentData = { //dados do comentario
             comment: commentText,
             id: photo._id
         }
-        dispatch(comment(commentData))
-        setCommentText("")
-
-        resetMessage()
+        dispatch(comment(commentData)) //enviar os dados para o backend
+        setCommentText("") //resetar o estado do texto do comentario
+        resetMessage() //resetar as mensagens de erro e sucesso
     }
 
     if(loading){
